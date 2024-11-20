@@ -1,7 +1,11 @@
 import express from 'express';
-
+import databaseConnection from "./db/config.js"
 const app = express();
 
-app.listen(5000,()=>{
-    console.log(`Servidor corriendo en el http://localhost:${5000}`);
+const PORT = 5001; //Siendo tomada desde el .env
+
+databaseConnection();
+
+app.listen(PORT,()=>{
+    console.log(`Servidor corriendo en el http://localhost:${PORT}`);
 })
