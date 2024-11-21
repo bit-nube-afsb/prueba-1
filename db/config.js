@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-const mongoUri = "mongodb://localhost:27017";
+import dotenv from "dotenv";
+
+dotenv.config();
+const mongoUri = process.env.DB_URI || "";
 
 async function databaseConnection() {
     try {
