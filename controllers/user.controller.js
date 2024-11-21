@@ -1,5 +1,5 @@
 import { getUsers } from "../services/user.services.js";
-
+//READ ALL (*)
 export async function listUsers(req,res) {
     try {
         const users = await getUsers();
@@ -8,6 +8,22 @@ export async function listUsers(req,res) {
         res.status(500).json({message: error.message})
     }
 }
+
+// READ ONE
+
+// CREATE (*)
+
+// DELETE ONE (*)
+
+// DELETE ALL
+
+// UPDATE (*)
+
+// AUTENTICACION 
+
+// LOGIN (*)
+
+// RUTA AUTENTICADA (*)
 
 // CON CJS
 // module.exports = {
