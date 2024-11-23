@@ -41,7 +41,16 @@ export async function loginUser(req,res) {
         res.status(500).json({message: error.message});
     }
 }
+
 // RUTA AUTENTICADA (*)
+export async function protectedRoute(req,res){
+    try{
+        const user = req.user;
+        res.status(200).json({response: `Estás autenticado correctamente con el email: ${user.email}`});
+    }catch (error){
+        res.status(500).json({message: `Ocurrio un error: ${error.message}`})
+    }
+}
 
 // CON CJS
 // module.exports = {
