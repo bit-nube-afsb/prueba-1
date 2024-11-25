@@ -44,6 +44,50 @@ export async function loginService(user) {
         throw new Error(`Error al logear el usuario: ${error.message}`);
     }
 }
+export async function deleteUserById(id) {
+    try {
+        const deletedUser = await Users.findByIdAndDelete(id);
+        if (!deletedUser) {
+            return `Usuario con ID ${id} no encontrado.`;
+        }
+        return `Usuario con ID ${id} eliminado exitosamente.`;
+    } catch (error) {
+        throw new Error(`Error al borrar el usuario: ${error.message}`);
+    }
+}
+
+export async function getUserById(id) {
+    try {
+        const user = await Users.findById(id);
+        if (!user) {
+            return `Usuario con ID ${id} no encontrado.`;
+        }
+        return user;
+    } catch (error) {
+        throw new Error(`Error al obtener el usuario: ${error.message}`);
+    }
+}
+
+export async function deleteAllUsers() {
+    try {
+        const result = await Users.deleteMany({});
+        return `Se eliminaron ${result.deletedCount} usuarios.`;
+    } catch (error) {
+        throw new Error(`Error al eliminar todos los usuarios: ${error.message}`);
+    }
+}
+
+export async function updateUserById(id, data) {
+    try {
+        const updatedUser = await Users.findByIdAndUpdate(id, data, { new: true });
+        if (!updatedUser) {
+            return `Usuario con ID ${id} no encontrado.`;
+        }
+        return updatedUser;
+    } catch (error) {
+        throw new Error(`Error al actualizar el usuario: ${error.message}`);
+    }
+}
 
 // export async function getUserCount() {
 //     try {

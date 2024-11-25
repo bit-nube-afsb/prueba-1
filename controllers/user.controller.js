@@ -1,4 +1,4 @@
-import { getUsers, createUser, loginService } from "../services/user.services.js";
+import { getUsers, createUser, loginService, deleteUserById } from "../services/user.services.js";
 //READ ALL (*)
 export async function listUsers(req,res) {
     try {
@@ -10,6 +10,21 @@ export async function listUsers(req,res) {
 }
 
 // READ ONE
+
+export async function getOneUserById(req, res) {
+    try {
+        const userId = req.params.id;
+        const result = await getUserById(userId);
+
+        if (typeof result === 'string') {
+            return res.status(404).json({ message: result });
+        }
+
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ message: `Error al obtener el usuario: ${error.message}` });
+    }
+}
 
 // CREATE (*)
 
@@ -25,9 +40,48 @@ export async function createNewUser(req,res) {
 
 // DELETE ONE (*)
 
+export async function deleteOneUserById(req, res) {
+    try {
+        const userId = req.params.id;
+        const result = await deleteUserById(userId);
+
+        if (result.includes("no encontrado")) {
+            return res.status(404).json({ message: result });
+        }
+
+        return res.status(200).json({ message: result });
+    } catch (error) {
+        return res.status(500).json({ message: `Error al borrar el usuario: ${error.message}` });
+    }
+}
 // DELETE ALL
 
+export async function deleteAllUsersController(req, res) {
+    try {
+        const result = await deleteAllUsers();
+        return res.status(200).json({ message: result });
+    } catch (error) {
+        return res.status(500).json({ message: `Error al eliminar todos los usuarios: ${error.message}` });
+    }
+}
+
 // UPDATE (*)
+
+export async function updateOneUserById(req, res) {
+    try {
+        const userId = req.params.id;
+        const data = req.body;
+        const result = await updateUserById(userId, data);
+
+        if (typeof result === 'string') {
+            return res.status(404).json({ message: result });
+        }
+
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ message: `Error al actualizar el usuario: ${error.message}` });
+    }
+}
 
 // AUTENTICACION 
 
